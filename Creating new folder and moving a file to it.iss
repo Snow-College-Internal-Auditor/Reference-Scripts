@@ -1,7 +1,7 @@
 Dim subFilename As String
 
 Sub Main
-
+	emptyDb = False
 	Call createFolder()
 	Call moveDatabase()
 
