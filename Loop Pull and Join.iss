@@ -37,7 +37,6 @@ Function NumberOfPulls
 End Function 
 
 Function DatabaseToJoin(j)
-	MsgBox(j)
 	If j = 0 Then 
 		PrimeDatabase = InputBox("Enter primary database: ", "Name Input", "[Year][Month]TransactionStatement.xlsx Clean")
 		PrimeDatabase = PrimeDatabase + ".IMD"
@@ -138,7 +137,6 @@ Function CleanYear
 	task.AddFieldToInc "DEPARTMENT"
 	singleDatabase = tempFileName + " Clean.IMD"
 	task.AddExtraction singleDatabase, "", ""
-	MsgBox(singleDatabase)
 	task.CreateVirtualDatabase = False
 	task.PerformTask 1, db.Count
 	Client.CloseDatabase importedFile
