@@ -1,0 +1,3 @@
+# Dialog-Template
+This is a template for how to make a dialog box in IDEA with idea script. This example shows you how to creat a dialog box that selects a file and sets peramiters, but it does not apply those effects to the database it opens. This code is meant to just show hot to create a dialog box with these different options. Credit for the IDEA code is a video channel on youtube called IDEAScripting.com. There is multiple videos showing how to build this dialog box. The first video for this specific code is https://www.youtube.com/watch?v=okX_77S76ro&list=PLUuDIbSILZCivLw2ZpxHury_eWO9ZJUyw&index=8
+Link for could to calendar http://ideascripting.com/sites/default/files/Dialog%20Demo%20Part%209.iss

@@ -1,0 +1,97 @@
+Option Explicit
+Dim sFilename As String
+Dim bExitScript As Boolean
+
+Sub Main
+	Call menu()
+End Sub
+
+Function menu()
+	Dim dlg As DialogDemo
+	Dim button As Integer 
+	On Error Resume Next 
+	sFilename = Client.CurrentDatabase.Name
+	button = Dialog(dlg)
+	If button = 0 Then bExitScript = True 
+End Function
+
+Function displayIt(ControllD$, Action%, SuppValue%)
+	Dim bExitMenu As Boolean 
+	
+	Select Case Action%
+		Case 1
+			If sFilename <>""Then
+				Call getNumericFIeld
+				DlgListBoxArray"drpAmountField", listbox1$()
+			End If
+
+		Case 2
+			Select Case ControllD$
+				Case "btnFileSelect"
+					sFilename = selectFile()
+					If sFilename <>""Then
+						Call getNumericFIeld
+						DlgListBoxArray"drpAmountField", listbox1$()
+					End If
+				Case "OKButton1"
+					bExitMenu = True
+				Case "CancelButton1"
+					bExitMenu = True
+					bExitScript = True
+			End Select
+	End Select
+			
+	If bExitMenu Then 
+		displayIt = 0
+	Else
+		displayIt = 1
+	End If
+	
+	If sFilename = ""Then
+		DlgText "txtFilename","Please select a filename"
+	Else
+		DlgText "txtFilename",iSplit(sFilename,"","\",1,1)
+	End If
+End Function
+
+Function selectFile() As String
+	Dim obj As Object 
+	Set obj = Client.CommonDialogs
+		selectFile = obj.FileExplorer()
+	Set obj = Nothing 
+End Function 
+
+Function getNumericField()
+	Dim db As database
+	Dim table As table
+	Dim field As field
+	Dim i As Integer
+	Dim bFirstTime As Boolean 
+	
+	Set db = Client.OpenDatabase(sFilename)
+		Set table = db.TableDef
+			bFirstTime = True 
+			For i = 1 To table.count
+				Set field = table.GetFieldAt(i)
+				If field.isNumeric Then
+					If bFirstTime Then
+						bFirstTime = False
+						ReDim listbox1$(1)
+							listbox1$(1) = field.name
+					Else
+						ReDim preserve listbox1$(UBound(listbox1$)+1)
+						listbox1$(UBound(listbox1$)) = field.name
+					End If
+				End If
+			Next i
+			Set field = Nothing
+		Set table = Nothing
+		db.close
+	Set db = Nothing	
+End Function 
+
+
+
+
+
+
